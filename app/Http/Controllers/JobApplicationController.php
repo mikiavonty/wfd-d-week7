@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\JobApplication;
 use App\Models\JobListing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class JobApplicationController extends Controller
 {
@@ -13,6 +14,7 @@ class JobApplicationController extends Controller
      */
     public function index(string $id)
     {
+        Log::info("JobApplicationController.index");
         $job = JobListing::where('id', $id)->firstOrFail();
         return view('job-applications.index', [
             "job" => $job
@@ -32,15 +34,18 @@ class JobApplicationController extends Controller
      */
     public function store(Request $request)
     {
+        Log::info("JobApplicationController.store");
         $validated = $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|email',
             'phone_number' => 'required',
             'cover_letter' => 'required|max:1000',
             'resume_file' => 'required|file|mimes:pdf,docx',
+            'job_listing_id' => 'required|numeric'
         ]);
 
         if (!$validated) {
+            Log::error("Data sent is not valid.");
             return redirect()->back()->withInput();
         }
 
