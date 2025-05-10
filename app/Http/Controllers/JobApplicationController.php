@@ -50,7 +50,7 @@ class JobApplicationController extends Controller
         }
 
         $file_path = $request->file('resume_file')->store('resumes');
-        JobApplication::create([
+        $jobApplication = JobApplication::create([
             "name" => $request->name,
             "email" => $request->email,
             "phone_number" => $request->phone_number,

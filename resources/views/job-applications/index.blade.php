@@ -1,8 +1,15 @@
-@extends('templates.base')
+{{-- @extends('templates.base')
 
-@section('content')
+@section('content') --}}
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Apply '.$job->title.' Position') }}
+        </h2>
+    </x-slot>
+
     <div class="max-w-xl m-auto pt-6 pb-6">
-        <h1 class="mt-1 text-2xl/8 font-medium tracking-tight text-gray-950 group-data-dark:text-white">Apply {{ $job->title }} Position</h1>
+        {{-- <h1 class="mt-1 text-2xl/8 font-medium tracking-tight text-gray-950 group-data-dark:text-white">Apply {{ $job->title }} Position</h1> --}}
         <form action="{{ route('job-applications.store', ['joblisting' => $job->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -75,4 +82,5 @@
           </div>
         </form>
     </div>
-@endsection
+</x-app-layout>
+{{-- @endsection --}}
